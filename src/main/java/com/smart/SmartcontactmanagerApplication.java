@@ -6,14 +6,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class SmartcontactmanagerApplication extends SpringBootServletInitializer {
+public class SmartcontactmanagerApplication {
 	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		
-		return builder.sources(SmartcontactmanagerApplication.class);
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(SmartcontactmanagerApplication.class, args);
 		
