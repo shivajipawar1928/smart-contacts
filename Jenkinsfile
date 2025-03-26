@@ -2,36 +2,40 @@ pipeline {
     agent any
 
     environment {
-        JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
-        DEPLOY_DIR = "C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target" // Choose a directory to deploy the app
+        JAR_NAME = "SmartcontactmanagerApplication.jar"
+        DEPLOY_DIR = "C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target"
+        SERVER_PORT = "8291"
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/shivajipawar1928/smart-contacts.git' // Add your repo URL
+                echo 'Checking out code from GitHub...'
+                git branch: 'main', url: 'https://github.com/shivajipawar1928/smart-contacts.git'
             }
         }
 
-        stage('Build Jar') {
+        stage('Build Application') {
             steps {
-                sh 'mvn clean package'
+                echo 'Building application using Maven...'
+                bat 'mvn clean package'
             }
         }
 
         stage('Stop Existing Application') {
             steps {
                 script {
-                    sh """
-                        echo "Checking for running application..."
-                        PID=\$(lsof -ti :8291)
-                        if [ ! -z "\$PID" ]; then
-                            echo "Stopping existing application with PID: \$PID"
-                            kill -9 \$PID
-                        else
-                            echo "No application running on port 8291."
-                        fi
-                    """
+                    echo 'Stopping any existing application running on port 8291...'
+                    def command = 'netstat -ano | findstr :8291'
+                    def result = bat(script: command, returnStdout: true).trim()
+                    if (result) {
+                        def pid = result.split()[-1]
+                        echo "Stopping application with PID: ${pid}"
+                        bat "taskkill /F /PID ${pid}"
+                    } else {
+                        echo "No application running on port 8291."
+                    }
                 }
             }
         }
@@ -39,14 +43,9 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    sh """
-                        echo "Copying jar to deployment directory..."
-                        cp target/${*.jar} ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
-
-                        echo "Starting application..."
-                        nohup java -jar ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/${smartcontactmanager-0.0.1-SNAPSHOT.jar} > ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/app.log 2>&1 &
-                        echo "Application started. Logs are available in ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/app.log"
-                    """
+                    echo 'Starting application using the generated .jar file...'
+                    bat "start /B java -jar ${DEPLOY_DIR}/${JAR_NAME} --server.port=${SERVER_PORT} > ${DEPLOY_DIR}/app.log 2>&1"
+                    echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
                 }
             }
         }
