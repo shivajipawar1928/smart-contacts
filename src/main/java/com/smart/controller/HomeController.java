@@ -19,7 +19,6 @@ import com.smart.dao.UserRepository;
 import com.smart.entities.User;
 import com.smart.helper.Message;
 
-
 @Controller
 public class HomeController {
 	
