@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
-        DEPLOY_DIR = "C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target" // Choose a directory to deploy the app
+        DEPLOY_DIR = "C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target" // Choose a directory to deploy the app
     }
 
     stages {
@@ -41,12 +41,12 @@ pipeline {
                 script {
                     sh """
                         echo "Copying jar to deployment directory..."
-                        mkdir -p ${C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target}
-                        cp target/${smartcontactmanager-0.0.1-SNAPSHOT.jar} ${C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target}
+                  //      mkdir -p ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
+                        cp target/${smartcontactmanager-0.0.1-SNAPSHOT.jar} ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
 
                         echo "Starting application..."
-                        nohup java -jar ${C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target}/${smartcontactmanager-0.0.1-SNAPSHOT.jar} > ${C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target}/app.log 2>&1 &
-                        echo "Application started. Logs are available in ${C:\Users\Shree\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\smartcontactmanager\target}/app.log"
+                        nohup java -jar ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/${smartcontactmanager-0.0.1-SNAPSHOT.jar} > ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/app.log 2>&1 &
+                        echo "Application started. Logs are available in ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}/app.log"
                     """
                 }
             }
