@@ -41,7 +41,7 @@ pipeline {
                 script {
                     sh """
                         echo "Copying jar to deployment directory..."
-                  //      mkdir -p ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
+                        mkdir -p ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
                         cp target/${smartcontactmanager-0.0.1-SNAPSHOT.jar} ${C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target}
 
                         echo "Starting application..."
