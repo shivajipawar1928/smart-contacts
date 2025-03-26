@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     environment {
-        JAR_NAME = "my-app.jar"
+        JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
         APP_NAME = "SpringBootApp"
-        DEPLOY_DIR = "/path/to/deploy" // Local or Remote Path
+        DEPLOY_DIR = "http://192.168.43.138" // Local or Remote Path
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/username/your-repo.git'
+                git 'https://github.com/shivajipawar1928/smart-contacts.git'
             }
         }
 
@@ -23,16 +23,16 @@ pipeline {
         stage('Deploy Jar') {
             steps {
                 script {
-                    def jarPath = "target/${JAR_NAME}"
+                    def jarPath = "target/${smartcontactmanager-0.0.1-SNAPSHOT.jar}"
                     sh """
                         echo "Stopping existing application..."
-                        pkill -f ${JAR_NAME} || echo "No existing app found."
+                        pkill -f ${smartcontactmanager-0.0.1-SNAPSHOT.jar} || echo "No existing app found."
 
                         echo "Copying jar to deploy directory..."
-                        cp ${jarPath} ${DEPLOY_DIR}
+                        cp ${target/smartcontactmanager-0.0.1-SNAPSHOT.jar} ${http://192.168.43.138}
 
                         echo "Starting new application..."
-                        nohup java -jar ${DEPLOY_DIR}/${JAR_NAME} > ${DEPLOY_DIR}/app.log 2>&1 &
+                        nohup java -jar ${http://192.168.43.138}/${smartcontactmanager-0.0.1-SNAPSHOT.jar} > ${http://192.168.43.138}/app.log 2>&1 &
                         echo "Application started successfully."
                     """
                 }
