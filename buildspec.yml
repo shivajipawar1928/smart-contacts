@@ -1,16 +1,12 @@
 phases:
   install:
     commands:
-      - echo "Installing Maven"
       - mvn clean install
   build:
     commands:
-      - echo "Building application"
       - mvn package
   post_build:
     commands:
-      - echo "Build completed"
 artifacts:
   files:
-    - target/*.war
     - target/*.jar
