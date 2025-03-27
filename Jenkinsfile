@@ -59,7 +59,7 @@ pipeline {
             echo 'Deploying application using PowerShell...'
             bat """
     cd ${DEPLOY_DIR}
-    echo Starting application in background...
+    echo Command to execute: "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME} --server.port=${SERVER_PORT}
     start /b "SpringBootApp" "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
 """
 
