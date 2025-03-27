@@ -60,8 +60,9 @@ pipeline {
             bat """
                 cd ${DEPLOY_DIR}
                 echo Starting application...
-                start java -jar ${JAR_NAME}
+                start "" "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME}
             """
+            echo "Application started in the background on port ${SERVER_PORT}."
         }
     }
 }
