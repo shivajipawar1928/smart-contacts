@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        JAR_NAME = "SmartcontactmanagerApplication.jar"
-        DEPLOY_DIR = "C:/Users/Shree/Documents/workspace-spring-tool-suite-4-4.20.1.RELEASE/smartcontactmanager/target"
+        JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
+        DEPLOY_DIR = "C:/ProgramData/Jenkins/.jenkins/workspace/SpringBoot-Jar-Deploy/target"
         SERVER_PORT = "8291"
     }
 
