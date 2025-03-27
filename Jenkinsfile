@@ -48,12 +48,13 @@ pipeline {
             bat """
                 cd ${DEPLOY_DIR}
                 echo Starting application...
-                start cmd /k "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1"
+                start cmd /k \\"C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe\\" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
             """
             echo "Application started in the background on port ${SERVER_PORT}. Logs are saved to app.log"
         }
     }
 }
+
 
 
 
