@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
-        DEPLOY_DIR = "C:/ProgramData/Jenkins/.jenkins/workspace/SpringBoot-Jar-Deploy/target"
+        DEPLOY_DIR = "${WORKSPACE}/target"
         SERVER_PORT = "8291"
     }
 
