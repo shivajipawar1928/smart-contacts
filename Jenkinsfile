@@ -26,15 +26,16 @@ pipeline {
         stage('Stop Existing Application') {
             steps {
                 script {
-                    echo 'Stopping any existing application running on port 8291...'
-                    def command = 'netstat -ano | findstr :8291'
-                    def result = bat(script: command, returnStdout: true).trim()
-                    if (result) {
-                        def pid = result.split()[-1]
+                    echo 'Checking if an application is running on port 8291...'
+                    def result = bat(script: 'netstat -ano | findstr :8291', returnStatus: true)
+                    if (result == 0) {
+                        echo 'Application detected. Attempting to stop...'
+                        def output = bat(script: 'netstat -ano | findstr :8291', returnStdout: true).trim()
+                        def pid = output.split()[-1]
                         echo "Stopping application with PID: ${pid}"
                         bat "taskkill /F /PID ${pid}"
                     } else {
-                        echo "No application running on port 8291."
+                        echo "No application found on port 8291."
                     }
                 }
             }
@@ -43,7 +44,7 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    echo 'Starting application using the generated .jar file...'
+                    echo 'Deploying application using the generated .jar file...'
                     bat "start /B java -jar ${DEPLOY_DIR}/${JAR_NAME} --server.port=${SERVER_PORT} > ${DEPLOY_DIR}/app.log 2>&1"
                     echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
                 }
