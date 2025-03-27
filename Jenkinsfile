@@ -19,7 +19,7 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building application using Maven Wrapper...'
-                bat './mvnw.cmd  package'
+                bat './mvnw.cmd clean package'
             }
         }
 
@@ -41,19 +41,20 @@ pipeline {
             }
         }
 
-     stage('Deploy Application') {
+    stage('Deploy Application') {
     steps {
         script {
-            echo 'Creating start.bat to deploy in background...'
+            echo 'Deploying application using the generated .jar file...'
             bat """
-                echo java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
-                echo exit >> start.bat
-                start /B start.bat
+                cd ${DEPLOY_DIR}
+                echo Starting application...
+                start cmd /k "java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1"
             """
-            echo "Application started using start.bat. Logs are in app.log"
+            echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
         }
     }
 }
+
 
 
 
