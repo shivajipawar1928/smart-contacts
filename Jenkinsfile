@@ -56,26 +56,16 @@ pipeline {
    stage('Deploy Application') {
     steps {
         script {
-            echo 'Deploying application using the generated .jar file...'
+            echo 'Deploying application using wmic...'
             bat """
                 cd ${DEPLOY_DIR}
-                echo Starting application using cmd /c...
-                cmd /c start "" "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME}
+                echo Starting application...
+                wmic process call create "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe -jar ${JAR_NAME} --server.port=${SERVER_PORT}"
             """
-            echo "Application started in the background on port ${SERVER_PORT}."
+            echo "Application started in the background using wmic."
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
     }
