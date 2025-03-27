@@ -48,12 +48,13 @@ pipeline {
             bat """
                 cd ${DEPLOY_DIR}
                 echo Starting application...
-                start cmd /c "java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1"
+                start /B java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
             """
             echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
         }
     }
 }
+
 
 
     }
