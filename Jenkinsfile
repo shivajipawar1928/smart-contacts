@@ -61,6 +61,8 @@ pipeline {
                 cd ${DEPLOY_DIR}
                 echo Starting application...
                 start java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar
+                start cmd /k "java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1 & pause"
+                
             """
         }
     }
