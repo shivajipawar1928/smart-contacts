@@ -18,14 +18,18 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                echo 'Building application using Maven Wrapper...'
-                def result = bat(script: 'clean', returnStatus: true)
-                if (result == 0) {
-                        echo 'Cleaning previous build'
-                        bat './mvnw.cmd clean'
+                script {
+                    echo 'Checking if a previous build is there...'
+                    def result = bat(script: './mvnw.cmd clean', returnStatus: true)
+                    if (result == 0) {
+                        echo 'Build detected. Attempting to clean...'
+                        
+                        echo "Cleaning previous build"
+                        bat "./mvnw.cmd clean"
                     } else {
-                        echo "No application to clean."
+                        echo "No previous build."
                     }
+                }
                 
                 bat './mvnw.cmd package'
             }
