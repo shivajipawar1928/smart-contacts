@@ -46,11 +46,11 @@ pipeline {
                 script {
                     echo 'Deploying application using the generated .jar file...'
                     bat """
-                        echo Starting application in a new Command Prompt window...
+                        echo Starting application...
                         cd ${DEPLOY_DIR}
-                        start cmd /k "java -jar ${JAR_NAME} --server.port=${SERVER_PORT}"
+                        start /B java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
                     """
-                    echo "Application started on port ${SERVER_PORT}. You can access it at http://localhost:${SERVER_PORT}"
+                    echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
                 }
             }
         }
