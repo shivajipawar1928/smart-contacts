@@ -18,8 +18,8 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                echo 'Building application using Maven...'
-                bat 'mvn clean package'
+                echo 'Building application using Maven Wrapper...'
+                bat './mvnw.cmd clean package'
             }
         }
 
