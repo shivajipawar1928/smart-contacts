@@ -53,19 +53,20 @@ pipeline {
             }
         }
 
-   stage('Deploy Application') {
+  stage('Deploy Application') {
     steps {
         script {
-            echo 'Deploying application using wmic...'
+            echo 'Deploying application using PowerShell...'
             bat """
                 cd ${DEPLOY_DIR}
                 echo Starting application...
-                wmic process call create "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe -jar ${JAR_NAME} --server.port=${SERVER_PORT}"
+                powershell Start-Process -NoNewWindow -FilePath "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -ArgumentList "-jar ${JAR_NAME} --server.port=${SERVER_PORT}"
             """
-            echo "Application started in the background using wmic."
+            echo "Application started in the background using PowerShell."
         }
     }
 }
+
 
 
     }
