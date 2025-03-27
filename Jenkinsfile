@@ -60,7 +60,7 @@ pipeline {
             bat """
                 cd ${DEPLOY_DIR}
                 echo Starting application...
-                start "java -jar" ${JAR_NAME}
+                start java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291  1>app.log 2>&1
             """
             echo "Application started in the background on port ${SERVER_PORT}. Logs are saved to app.log"
         }
