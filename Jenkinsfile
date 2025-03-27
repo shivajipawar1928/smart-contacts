@@ -42,13 +42,18 @@ pipeline {
         }
 
         stage('Deploy Application') {
-            steps {
-                script {
-                    echo 'Deploying application using the generated .jar file...'
-                    bat "start /B java -jar ${DEPLOY_DIR}/${JAR_NAME} --server.port=${SERVER_PORT} > ${DEPLOY_DIR}/app.log 2>&1"
-                    echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
-                }
-            }
+    steps {
+        script {
+            echo 'Deploying application using the generated .jar file...'
+            bat """
+                echo Starting application...
+                cd ${DEPLOY_DIR}
+                start /B java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
+            """
+            echo "Application started on port ${SERVER_PORT}. Logs are saved to app.log"
         }
+    }
+}
+
     }
 }
