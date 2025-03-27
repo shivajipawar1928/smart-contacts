@@ -58,10 +58,11 @@ pipeline {
         script {
             echo 'Deploying application using PowerShell...'
             bat """
-                cd ${DEPLOY_DIR}
-                echo Starting application...
-                powershell Start-Process -NoNewWindow -FilePath "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -ArgumentList "-jar ${JAR_NAME} --server.port=${SERVER_PORT}"
-            """
+    cd ${DEPLOY_DIR}
+    echo Starting application in background...
+    start /b "SpringBootApp" "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
+"""
+
             echo "Application started in the background using PowerShell."
         }
     }
