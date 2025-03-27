@@ -19,7 +19,7 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building application using Maven Wrapper...'
-                bat './mvnw.cmd clean package'
+                bat './mvnw.cmd  package'
             }
         }
 
