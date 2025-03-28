@@ -45,18 +45,25 @@ pipeline {
             }
         }
 
-        stage('Deploy Application') {
+       stage('Deploy Application') {
             steps {
                 script {
-                    echo 'Deploying application using PowerShell...'
+                    echo 'Creating start.bat for application deployment...'
                     bat """
                         cd ${DEPLOY_DIR}
-                        echo Command to execute: \"${JAVA_PATH}\" -jar ${JAR_NAME} --server.port=${SERVER_PORT}
-                        start /b \"SpringBootApp\" \"${JAVA_PATH}\" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
+                        echo java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
+                        echo Start.bat created successfully.
                     """
-                    echo "Application started in the background. Logs are saved to app.log."
+
+                    echo 'Starting the application using start command...'
+                    bat """
+                        cd ${DEPLOY_DIR}
+                        start cmd /k start.bat
+                    """
+                    echo 'Application started successfully.'
                 }
             }
         }
+
     }
 }
