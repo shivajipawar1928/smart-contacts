@@ -5,6 +5,7 @@ pipeline {
         JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
         DEPLOY_DIR = "${WORKSPACE}/target"
         SERVER_PORT = "8291"
+        JAVA_PATH = "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe"
     }
 
     stages {
@@ -19,18 +20,9 @@ pipeline {
         stage('Build Application') {
             steps {
                 script {
-                    echo 'Checking if a previous build is there...'
-                    def result = bat(script: './mvnw.cmd clean', returnStatus: true)
-                    if (result == 0) {
-                        echo 'Build detected. Attempting to clean...'
-                        
-                        echo "Cleaning previous build"
-                        bat "./mvnw.cmd clean"
-                    } else {
-                        echo "No previous build."
-                    }
+                    echo 'Checking if a previous build exists...'
+                    bat './mvnw.cmd clean'
                 }
-                
                 bat './mvnw.cmd package'
             }
         }
@@ -53,22 +45,18 @@ pipeline {
             }
         }
 
-  stage('Deploy Application') {
-    steps {
-        script {
-            echo 'Deploying application using PowerShell...'
-            bat """
-    cd ${DEPLOY_DIR}
-    echo Command to execute: "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME} --server.port=${SERVER_PORT}
-    start /b "SpringBootApp" "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
-"""
-
-            echo "Application started in the background using PowerShell."
+        stage('Deploy Application') {
+            steps {
+                script {
+                    echo 'Deploying application using PowerShell...'
+                    bat """
+                        cd ${DEPLOY_DIR}
+                        echo Command to execute: \"${JAVA_PATH}\" -jar ${JAR_NAME} --server.port=${SERVER_PORT}
+                        start /b \"SpringBootApp\" \"${JAVA_PATH}\" -jar ${JAR_NAME} --server.port=${SERVER_PORT} > app.log 2>&1
+                    """
+                    echo "Application started in the background. Logs are saved to app.log."
+                }
+            }
         }
-    }
-}
-
-
-
     }
 }
