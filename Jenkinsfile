@@ -18,15 +18,12 @@ pipeline {
         }
 
         stage('Build Application') {
-            steps {
-                script {
-                    echo 'Checking if a previous build exists...'
-                    bat './mvnw.cmd clean'
-                }
-                bat './mvnw.cmd package'
-            }
-        }
-
+    steps {
+        echo 'Building application using Maven...'
+        bat './mvnw.cmd clean package'
+    }
+}
+        
         stage('Stop Existing Application') {
             steps {
                 script {
