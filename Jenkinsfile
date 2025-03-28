@@ -20,15 +20,15 @@ pipeline {
         stage('Build Application') {
     steps {
         script {
-            echo 'Checking if target folder exists...'
-            def targetExists = fileExists("${WORKSPACE}/target")
-            if (targetExists) {
-                echo 'Target folder found. Running mvn clean...'
-                bat './mvnw.cmd clean'
-            } else {
-                echo 'No target folder found. Skipping mvn clean.'
-            }
-        }
+    def targetFolder = new File("${WORKSPACE}/target")
+    if (targetFolder.exists() && targetFolder.listFiles().length > 0) {
+        echo 'Target folder is not empty. Running mvn clean...'
+        bat './mvnw.cmd clean'
+    } else {
+        echo 'Target folder is empty or does not exist. Skipping mvn clean.'
+    }
+}
+        
         echo 'Running mvn package...'
         bat './mvnw.cmd package'
     }
