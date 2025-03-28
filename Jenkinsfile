@@ -19,10 +19,21 @@ pipeline {
 
         stage('Build Application') {
     steps {
-        echo 'Building application using Maven...'
-        bat './mvnw.cmd clean package'
+        script {
+            echo 'Checking if target folder exists...'
+            def targetExists = fileExists("${WORKSPACE}/target")
+            if (targetExists) {
+                echo 'Target folder found. Running mvn clean...'
+                bat './mvnw.cmd clean'
+            } else {
+                echo 'No target folder found. Skipping mvn clean.'
+            }
+        }
+        echo 'Running mvn package...'
+        bat './mvnw.cmd package'
     }
 }
+
         
         stage('Stop Existing Application') {
             steps {
