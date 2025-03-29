@@ -36,7 +36,7 @@ pipeline {
                         cd target
                         @echo off
 echo Starting application...
-java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
+start java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
                     """
                     
                      echo 'Application started.'
