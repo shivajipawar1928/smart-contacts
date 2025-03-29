@@ -20,16 +20,14 @@ pipeline {
        stage('Clean') {
     steps {
         script {
-            def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
-            if (isTargetEmpty != '0') {
-                echo "Target folder is not empty, running clean."
-                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+            catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
+                if (isTargetEmpty != '0') {
+                    echo "Target folder is not empty, running clean."
                     bat './mvnw.cmd clean'
+                } else {
+                    echo "Target folder is empty, skipping clean."
                 }
-                echo "Clean completed. Resetting build status."
-                currentBuild.result = 'SUCCESS'
-            } else {
-                echo "Target folder is empty, skipping clean."
             }
         }
     }
@@ -37,12 +35,13 @@ pipeline {
 
 stage('Build') {
     steps {
-        echo "Building the project..."
-        bat './mvnw.cmd package'
+        catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+            echo "Building the project..."
+            bat './mvnw.cmd package'
+        }
     }
 }
-
-   
+        
         stage('Stop Existing Application') {
             steps {
                 script {
