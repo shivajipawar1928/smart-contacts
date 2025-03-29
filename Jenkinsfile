@@ -42,7 +42,7 @@ pipeline {
                     bat """
                         cd ${DEPLOY_DIR}
                         cd target
-                        start /B java -jar ${JAR_NAME}
+                        start cmd /k java -jar ${JAR_NAME}
                     """
                      echo 'Application started.'
                     
