@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
-        DEPLOY_DIR = "${WORKSPACE}/target"
+        DEPLOY_DIR = "${WORKSPACE}\target"
         SERVER_PORT = "8291"
         JAVA_PATH = "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe"
     }
