@@ -76,6 +76,7 @@ stage('Build') {
                         cd ${DEPLOY_DIR}
                         cd target
                         start.bat
+                        echo 'Application started...'
                     """
                     
                 }
