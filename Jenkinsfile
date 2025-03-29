@@ -45,6 +45,7 @@ pipeline {
                         start java -jar ${JAR_NAME}
                     """
                      echo 'Application started.'
+                    bat 'tasklist | findstr "java.exe"'
                     
                 }
             }
