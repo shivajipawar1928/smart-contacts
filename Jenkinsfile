@@ -18,9 +18,9 @@ pipeline {
         }
 
        stage('Clean') {
-            steps {
-                script {
-                    def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
+    steps {
+        script {
+            def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
             if (isTargetEmpty != '0') {
                 echo "Target folder is not empty, running clean."
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
@@ -29,16 +29,22 @@ pipeline {
             } else {
                 echo "Target folder is empty, skipping clean."
             }
-                }
-            }
         }
+    }
+    post {
+        always {
+            echo "Clean stage completed. Proceeding to Build stage."
+        }
+    }
+}
 
-         stage('Build') {
-            steps {
-                bat './mvnw.cmd package'
-            }
-        }
-        
+stage('Build') {
+    steps {
+        echo "Building the project..."
+        bat './mvnw.cmd package'
+    }
+}
+   
         stage('Stop Existing Application') {
             steps {
                 script {
