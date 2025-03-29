@@ -20,13 +20,13 @@ pipeline {
        stage('Clean') {
             steps {
                 script {
-                    def isEmpty = bat(script: 'dir target /a /b | find /v /c "" || exit 0', returnStdout: true).trim()
-                    if (isEmpty == '0') {
-                        echo "Target folder is empty, skipping clean step."
-                    } else {
-                        echo "Target folder is not empty, running clean."
-                        bat './mvnw.cmd clean'
-                    }
+                    def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
+            if (isTargetEmpty != '0') {
+                echo "Target folder is not empty, running clean."
+                bat './mvnw.cmd clean'
+            } else {
+                echo "Target folder is empty, skipping clean."
+            }
                 }
             }
         }
