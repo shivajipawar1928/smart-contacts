@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-
+/*
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code from GitHub...'
@@ -59,17 +59,17 @@ stage('Build') {
                 }
             }
         }
-
+*/
        stage('Deploy Application') {
             steps {
                 script {
-                    echo 'Creating start.bat for application deployment...'
+          /*          echo 'Creating start.bat for application deployment...'
                     bat """
                         cd ${DEPLOY_DIR}
                         cd target
                         echo java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
                         echo Start.bat created successfully.
-                    """
+         */           """
 
                     echo 'Starting the application using start command...'
                     bat """
