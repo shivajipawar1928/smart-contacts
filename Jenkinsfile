@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         JAR_NAME = "smartcontactmanager-0.0.1-SNAPSHOT.jar"
-        DEPLOY_DIR = "${WORKSPACE}\target"
+        DEPLOY_DIR = "${WORKSPACE}"
         SERVER_PORT = "8291"
         JAVA_PATH = "C:\\Program Files\\Java\\jdk-17.0.4.1\\bin\\java.exe"
     }
@@ -66,6 +66,7 @@ stage('Build') {
                     echo 'Creating start.bat for application deployment...'
                     bat """
                         cd ${DEPLOY_DIR}
+                        cd target
                         echo java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
                         echo Start.bat created successfully.
                     """
@@ -73,6 +74,7 @@ stage('Build') {
                     echo 'Starting the application using start command...'
                     bat """
                         cd ${DEPLOY_DIR}
+                        cd target
                     """
                     echo 'Application started successfully.'
                 }
