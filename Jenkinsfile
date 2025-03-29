@@ -9,39 +9,6 @@ pipeline {
     }
 
     stages {
-
-        stage('Checkout Code') {
-            steps {
-                echo 'Checking out code from GitHub...'
-                git branch: 'main', url: 'https://github.com/shivajipawar1928/smart-contacts.git'
-            }
-        }
-
-       stage('Clean') {
-    steps {
-        script {
-            catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
-                def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
-                if (isTargetEmpty != '0') {
-                    echo "Target folder is not empty, running clean."
-                    bat './mvnw.cmd clean'
-                } else {
-                    echo "Target folder is empty, skipping clean."
-                }
-            }
-        }
-    }
-}
-
-stage('Build') {
-    steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
-            echo "Building the project..."
-            bat './mvnw.cmd package'
-        }
-    }
-}
-        
         stage('Stop Existing Application') {
             steps {
                 script {
