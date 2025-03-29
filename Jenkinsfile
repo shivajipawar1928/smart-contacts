@@ -75,7 +75,7 @@ stage('Build') {
                     bat """
                         cd ${DEPLOY_DIR}
                         cd target
-                        start.bat
+                        start java -jar ${JAR_NAME}
                     """
                      echo 'Application started.'
                     
