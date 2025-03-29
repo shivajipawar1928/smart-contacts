@@ -26,14 +26,11 @@ pipeline {
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                     bat './mvnw.cmd clean'
                 }
+                echo "Clean completed with warnings, resetting build status."
+                currentBuild.result = 'SUCCESS'
             } else {
                 echo "Target folder is empty, skipping clean."
             }
-        }
-    }
-    post {
-        always {
-            echo "Clean stage completed. Proceeding to Build stage."
         }
     }
 }
