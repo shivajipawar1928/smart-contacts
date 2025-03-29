@@ -73,7 +73,8 @@ stage('Build') {
                     echo 'Starting the application using start command...'
                     bat """
                         cd ${DEPLOY_DIR}
-                        start cmd /k start.bat
+                        start cmd /k
+                        start.bat
                     """
                     echo 'Application started successfully.'
                 }
