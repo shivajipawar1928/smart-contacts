@@ -30,15 +30,13 @@ pipeline {
        stage('Deploy Application') {
             steps {
                 script {
-                    echo 'Creating start.bat for application deployment...'
                     bat """
+                        echo Starting application...
                         cd ${DEPLOY_DIR}
                         cd target
                         @echo off
-echo Starting application...
-start java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
-                    """
-                    
+                        java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
+                        """
                      echo 'Application started.'
                     
                 }
