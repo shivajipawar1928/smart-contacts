@@ -50,10 +50,8 @@ pause
                     bat """
                         cd ${DEPLOY_DIR}
                         cd target
-                        start.bat
                     """
                      echo 'Application started.'
-                    bat 'tasklist | findstr "java.exe"'
                     
                 }
             }
