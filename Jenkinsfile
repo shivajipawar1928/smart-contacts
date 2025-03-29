@@ -34,7 +34,6 @@ pipeline {
                         echo Starting application...
                         cd ${DEPLOY_DIR}
                         cd target
-                        @echo off
                         java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
                         """
                      echo 'Application started.'
