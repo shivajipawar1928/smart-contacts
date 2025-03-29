@@ -67,7 +67,7 @@ stage('Build') {
                     bat """
                         cd ${DEPLOY_DIR}
                         cd target
-                        echo cmd /b start java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
+                        echo cmd /c start java -jar ${JAR_NAME} --server.port=${SERVER_PORT} > start.bat
                         echo Start.bat created successfully.
                     """
 
