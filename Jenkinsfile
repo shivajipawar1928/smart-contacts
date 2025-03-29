@@ -23,7 +23,9 @@ pipeline {
                     def isTargetEmpty = bat(script: 'dir target /a /b | find /v /c ""', returnStdout: true).trim()
             if (isTargetEmpty != '0') {
                 echo "Target folder is not empty, running clean."
-                bat './mvnw.cmd clean'
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                    bat './mvnw.cmd clean'
+                }
             } else {
                 echo "Target folder is empty, skipping clean."
             }
