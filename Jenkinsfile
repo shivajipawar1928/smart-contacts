@@ -42,7 +42,6 @@ if %ERRORLEVEL% NEQ 0 (
 ) else (
     echo Application started successfully on port 8291.
 )
-pause
 
                     """
 
