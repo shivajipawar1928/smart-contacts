@@ -37,19 +37,8 @@ pipeline {
                         @echo off
 echo Starting application...
 java -jar smartcontactmanager-0.0.1-SNAPSHOT.jar --server.port=8291 > application.log 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    echo Failed to start application. Check logs for details.
-) else (
-    echo Application started successfully on port 8291.
-)
-
                     """
-
-                    echo 'Starting the application using start command...'
-                    bat """
-                        cd ${DEPLOY_DIR}
-                        cd target
-                    """
+                    
                      echo 'Application started.'
                     
                 }
